@@ -417,9 +417,24 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
+=head2 stock_resources
 
-# Created by DBIx::Class::Schema::Loader v0.07043 @ 2016-01-25 14:58:15
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:R3kVhfDKX/dE0+rn/ALdGg
+Type: has_many
+
+Related object: L<WTSI::DNAP::Warehouse::Schema::Result::StockResource>
+
+=cut
+
+__PACKAGE__->has_many(
+  'stock_resources',
+  'WTSI::DNAP::Warehouse::Schema::Result::StockResource',
+  { 'foreign.id_sample_tmp' => 'self.id_sample_tmp' },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+# Created by DBIx::Class::Schema::Loader v0.07046 @ 2016-12-12 16:05:12
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:IUcjh7VbYbSkHoohlf0OPA
 
 our $VERSION = '0';
 

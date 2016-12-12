@@ -80,6 +80,7 @@ Timestamp of initial registration of deletion in parent LIMS. NULL if not delete
 
   data_type: 'integer'
   extra: {unsigned => 1}
+  is_foreign_key: 1
   is_nullable: 0
 
 Sample id, see 'sample.id_sample_tmp'
@@ -88,6 +89,7 @@ Sample id, see 'sample.id_sample_tmp'
 
   data_type: 'integer'
   extra: {unsigned => 1}
+  is_foreign_key: 1
   is_nullable: 0
 
 Sample id, see 'study.id_study_tmp'
@@ -230,9 +232,19 @@ __PACKAGE__->add_columns(
     is_nullable => 1,
   },
   'id_sample_tmp',
-  { data_type => 'integer', extra => { unsigned => 1 }, is_nullable => 0 },
+  {
+    data_type => 'integer',
+    extra => { unsigned => 1 },
+    is_foreign_key => 1,
+    is_nullable => 0,
+  },
   'id_study_tmp',
-  { data_type => 'integer', extra => { unsigned => 1 }, is_nullable => 0 },
+  {
+    data_type => 'integer',
+    extra => { unsigned => 1 },
+    is_foreign_key => 1,
+    is_nullable => 0,
+  },
   'id_lims',
   { data_type => 'varchar', is_nullable => 0, size => 10 },
   'id_stock_resource_lims',
@@ -275,9 +287,41 @@ __PACKAGE__->add_columns(
 
 __PACKAGE__->set_primary_key('id_stock_resource_tmp');
 
+=head1 RELATIONS
 
-# Created by DBIx::Class::Schema::Loader v0.07046 @ 2016-12-12 14:07:18
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:BAWxZA7BoMpT+QPokwmGFw
+=head2 sample
+
+Type: belongs_to
+
+Related object: L<WTSI::DNAP::Warehouse::Schema::Result::Sample>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  'sample',
+  'WTSI::DNAP::Warehouse::Schema::Result::Sample',
+  { id_sample_tmp => 'id_sample_tmp' },
+  { is_deferrable => 1, on_delete => 'NO ACTION', on_update => 'NO ACTION' },
+);
+
+=head2 study
+
+Type: belongs_to
+
+Related object: L<WTSI::DNAP::Warehouse::Schema::Result::Study>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  'study',
+  'WTSI::DNAP::Warehouse::Schema::Result::Study',
+  { id_study_tmp => 'id_study_tmp' },
+  { is_deferrable => 1, on_delete => 'NO ACTION', on_update => 'NO ACTION' },
+);
+
+
+# Created by DBIx::Class::Schema::Loader v0.07046 @ 2016-12-12 16:05:12
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Mg/ZlPdA6vuKa6fTnaNt4w
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
