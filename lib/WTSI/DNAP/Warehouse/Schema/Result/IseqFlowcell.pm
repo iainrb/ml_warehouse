@@ -136,6 +136,14 @@ Defaults to manual qc value; can be changed by the user later
 
 Manufacturer flowcell barcode or other identifier
 
+=head2 reagent_kit_barcode
+
+  data_type: 'varchar'
+  is_nullable: 1
+  size: 30
+
+The barcode for the reagent kit or cartridge
+
 =head2 id_flowcell_lims
 
   data_type: 'varchar'
@@ -390,6 +398,8 @@ __PACKAGE__->add_columns(
   { data_type => 'tinyint', is_nullable => 1 },
   'flowcell_barcode',
   { data_type => 'varchar', is_nullable => 1, size => 15 },
+  'reagent_kit_barcode',
+  { data_type => 'varchar', is_nullable => 1, size => 30 },
   'id_flowcell_lims',
   { data_type => 'varchar', is_nullable => 0, size => 20 },
   'position',
@@ -456,21 +466,6 @@ __PACKAGE__->set_primary_key('id_iseq_flowcell_tmp');
 
 =head1 RELATIONS
 
-=head2 iseq_product_metrics
-
-Type: has_many
-
-Related object: L<WTSI::DNAP::Warehouse::Schema::Result::IseqProductMetric>
-
-=cut
-
-__PACKAGE__->has_many(
-  'iseq_product_metrics',
-  'WTSI::DNAP::Warehouse::Schema::Result::IseqProductMetric',
-  { 'foreign.id_iseq_flowcell_tmp' => 'self.id_iseq_flowcell_tmp' },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
 =head2 sample
 
 Type: belongs_to
@@ -507,8 +502,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07043 @ 2015-12-08 10:12:35
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:elVRHSNY/zTS50jaYHpAbQ
+# Created by DBIx::Class::Schema::Loader v0.07046 @ 2016-12-12 14:07:18
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:GnKvOwqTueDyvkt/UbjlgQ
 
 use MooseX::Aliases;
 use Readonly;

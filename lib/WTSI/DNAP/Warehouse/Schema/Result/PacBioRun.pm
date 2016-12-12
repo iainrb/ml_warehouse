@@ -205,6 +205,14 @@ The name of the originating library tube
 
 Legacy library_id for backwards compatibility.
 
+=head2 library_created_at
+
+  data_type: 'datetime'
+  datetime_undef_if_invalid: 1
+  is_nullable: 1
+
+Timestamp of library creation
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -268,6 +276,12 @@ __PACKAGE__->add_columns(
   { data_type => 'varchar', is_nullable => 0, size => 255 },
   'pac_bio_library_tube_legacy_id',
   { data_type => 'integer', is_nullable => 1 },
+  'library_created_at',
+  {
+    data_type => 'datetime',
+    datetime_undef_if_invalid => 1,
+    is_nullable => 1,
+  },
 );
 
 =head1 PRIMARY KEY
@@ -315,8 +329,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07043 @ 2015-11-17 14:11:51
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:AEJVUdA+xodgn1E8fqg8kg
+# Created by DBIx::Class::Schema::Loader v0.07046 @ 2016-12-12 14:07:18
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:nutN9kJI+uCNDRR3T4Ax4w
 
 our $VERSION = '0';
 
