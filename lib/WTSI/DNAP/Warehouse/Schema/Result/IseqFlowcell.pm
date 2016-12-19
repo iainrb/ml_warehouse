@@ -466,6 +466,21 @@ __PACKAGE__->set_primary_key('id_iseq_flowcell_tmp');
 
 =head1 RELATIONS
 
+=head2 iseq_product_metrics
+
+Type: has_many
+
+Related object: L<WTSI::DNAP::Warehouse::Schema::Result::IseqProductMetric>
+
+=cut
+
+__PACKAGE__->has_many(
+  'iseq_product_metrics',
+  'WTSI::DNAP::Warehouse::Schema::Result::IseqProductMetric',
+  { 'foreign.id_iseq_flowcell_tmp' => 'self.id_iseq_flowcell_tmp' },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 =head2 sample
 
 Type: belongs_to
